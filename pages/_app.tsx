@@ -1,8 +1,13 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import { AuthProvider } from '../lib/auth';
+import { supabase } from '../lib/initSupabase';
+import '../styles/global.css'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+function MyApp({ Component, pageProps }: any) {
+  return (
+    <AuthProvider supabase={supabase}>
+      <Component {...pageProps} />
+    </AuthProvider>
+  );
 }
 
 export default MyApp
