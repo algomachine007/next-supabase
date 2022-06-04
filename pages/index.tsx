@@ -1,18 +1,44 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "../components/Layout/Layout";
 import { useAuth } from "../lib/auth";
 import { Auth } from "@supabase/ui";
 import { supabase } from "../lib/initSupabase";
 import style from './../styles/form.module.css'
+import { useRouter } from "next/router";
 
-const Home = ({ user: usa }: any) => {
-  console.log('USA', usa.data[0])
+const Home = ({ data }: any) => {
+  console.log('lessons', data)
+
   //@ts-ignore
-  const { user, signOut, view } = useAuth();
+  const { user, signOut, view, setUser } = useAuth();
 
-  console.log(user)
-  console.log(view)
+  const router = useRouter()
+
+  // const pushToProfile = () => {
+  //   if (user) {
+  //     router.push('/profile')
+  //   }
+  // }
+
+  // useEffect(pushToProfile, [user])
+
+  console.log('supabase', supabase)
+
+  const signInWithGithub = async () => {
+    const { user } = await supabase.auth.signIn(
+      {
+        provider: "github",
+      },
+    );
+
+    console.log(user)
+  }
+
+  const signOutFromGithub = async () => {
+    await supabase.auth.signOut();
+  }
+
   return (
     <Layout>
       {user && (
@@ -28,39 +54,52 @@ const Home = ({ user: usa }: any) => {
         </>
       )}
 
-      <div style={{ display: 'flex', width: '20%', justifyContent: 'center', alignItems: 'center' }}>
-        <div className={style.form}>
-          {!user && <Auth view={view} supabaseClient={supabase} className={style.form} />}
 
-          <Auth view={view} supabaseClient={supabase} className={style.form} />
-        </div>
+      <div className={style.formWrapper}>
+
+        {!user && <Auth view={view} supabaseClient={supabase} className={style.form} />}
 
       </div>
 
 
-    </Layout>
+
+      <div>
+        <h1>View description </h1>
+
+        {data.map((lesson: any) => (
+          <div key={lesson.id}>
+            <Link href={{
+              pathname: "/lesson/[id]",
+              query: {
+                id: lesson.id
+              }
+            }
+            }>
+              {lesson.title}
+
+            </Link>
+          </div>
+
+        ))}
+      </div>
+
+      {/* <div>
+        Signin with Github
+        <button onClick={signInWithGithub}>Sign in</button>
+        <button onClick={signOutFromGithub}>Sign Out</button>
+      </div> */}
+
+
+
+    </Layout >
   );
 };
 
 export default Home;
 
 
-export const getServerSideProps = async (ctx: any) => {
+export const getStaticProps = async () => {
+  const { data } = await supabase.from('lessons').select('*')
 
-  const data = await fetch("https://bpnnhwohxfiawjecgcxw.supabase.co/rest/v1/user", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "apikey": `${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-        }`,
-    },
-  }).then((res) => res.json());
-
-
-
-  return {
-    props: {
-      user: { data },
-    },
-  };
+  return { props: { data } }
 }

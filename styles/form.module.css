@@ -1,4 +1,4 @@
-.form {
-border: 1px solid rebeccapurple;
- 
+.formWrapper {
+  box-shadow: 1px -1px 18px -4px rgba(17, 147, 71, 0.29);
+  padding: 40px;
 }

@@ -4,41 +4,46 @@ import { EVENTS, VIEWS } from "./events";
 export const AuthContext = createContext({});
 
 export const AuthProvider = ({ supabase, ...props }: any) => {
+
   const [session, setSession] = useState(null);
   const [user, setUser] = useState(null);
   const [view, setView] = useState(VIEWS.SIGN_IN);
 
+
   useEffect(() => {
     // grab the user session
     const activeSession = supabase.auth.session();
-
-    //update the state with the data
     setSession(activeSession);
+
+    console.log('ACTIVE SESSION', activeSession);
 
     // active session has a user prop
     setUser(activeSession?.user ?? null);
 
+
+
+    //Ensuring the events are updated
     const { data: authListener } = supabase.auth.onAuthStateChange(
-      (event: any, currentSession: any) => {
-        console.log('EVENT', event)
-        console.log('CURRENT SESSION', currentSession)
+      (event: string, currentSession: any) => {
+
         setSession(currentSession);
         setUser(currentSession?.user ?? null);
 
-        switch (event) {
+        console.log('Events', event);
 
+        switch (event) {
           case EVENTS.PASSWORD_RECOVERY:
             setView(VIEWS.UPDATE_PASSWORD);
             break;
           case EVENTS.SIGNED_OUT:
           case EVENTS.USER_UPDATED:
             setView(VIEWS.SIGN_IN);
-            break;
+
           default:
         }
       }
     );
-
+    //clean up
     return () => {
       authListener?.unsubscribe();
     };
@@ -50,6 +55,7 @@ export const AuthProvider = ({ supabase, ...props }: any) => {
         session,
         user,
         view,
+        setUser,
         signOut: () => supabase.auth.signOut(),
       }}
       {...props}

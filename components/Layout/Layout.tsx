@@ -9,11 +9,12 @@ const Layout = ({ children }: any) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-8 text-center sm:px-20">
-        <h1 className="text-5xl font-bold sm:text-6xl">
-          Next.js with <span className="font-black text-green-400">Supabase</span>
-        </h1>
-        <div className="mt-8 inline-flex w-full max-w-sm flex-col space-y-8">
+      <main style={{ display: 'flex', justifyContent: 'center' }}>
+
+        <div>
+          <h1>
+            Next.js with <span>Supabase</span>
+          </h1>
           {children}
         </div>
       </main>

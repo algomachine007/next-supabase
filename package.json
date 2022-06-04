@@ -11,9 +11,12 @@
   "dependencies": {
     "@supabase/supabase-js": "^1.35.3",
     "@supabase/ui": "^0.36.5",
+    "axios": "^0.27.2",
     "next": "12.1.6",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-dom": "18.1.0",
+    "toast": "^0.3.47",
+    "toastify": "^2.0.1"
   },
   "devDependencies": {
     "@types/node": "17.0.38",

@@ -20,7 +20,7 @@ const SignIn = () => {
     if (error) {
       alert(JSON.stringify(error));
     } else {
-      router.push('/dashboard');
+      router.push('/');
     }
   };
 
@@ -32,7 +32,7 @@ const SignIn = () => {
         provider: 'github',
       },
       {
-        redirectTo: 'http://localhost:3000/callback/',
+        redirectTo: 'http://localhost:3000/',
       }
     );
 
