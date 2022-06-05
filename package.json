@@ -17,6 +17,7 @@
     "next": "12.1.6",
     "react": "18.1.0",
     "react-dom": "18.1.0",
+    "react-toastify": "^9.0.3",
     "toast": "^0.3.47",
     "toastify": "^2.0.1"
   },

@@ -2,24 +2,15 @@ import { useState } from "react"
 
 import axios from "axios"
 import { AuthServerlessHookProps, AuthServerlessHookReturnType } from "./AuthServerlessHookType"
-
-type User = {
-  id: string,
-  aud: string,
-  role: string,
-  email: string,
-  app_metadata: {
-    provider: string,
-    providers: string[]
-  },
-}
+import { Session, User } from "@supabase/gotrue-js/src/lib/types"
+import { AuthChangeEvent } from "@supabase/supabase-js";
+import toaster from "../helpers/toaster";
 
 const useAuthServerless = ({ mode, input }: AuthServerlessHookProps): AuthServerlessHookReturnType => {
-  const [user, setUser] = useState(null)
+
+
 
   const [authState, setAuthState] = useState({
-    isLoading: false,
-    isError: false,
     error: null,
     user: null,
     session: null,
@@ -29,7 +20,6 @@ const useAuthServerless = ({ mode, input }: AuthServerlessHookProps): AuthServer
 
   const path: NonNullable<string> = mode
 
-
   const signin = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
     const data = {
@@ -38,19 +28,32 @@ const useAuthServerless = ({ mode, input }: AuthServerlessHookProps): AuthServer
     }
     await axios.post(`${process.env.NEXT_PUBLIC_URL
       }${path}`, data).then(res => {
-        //@ts-ignore
-        setUser(res)
+
+        const { user: authenticatedUser, activeSession, error: authError } = res.data
+
+        setAuthState({
+          error: authError,
+          user: authenticatedUser,
+          session: activeSession,
+        })
+        toaster()
       }
       ).catch(err => {
-        console.log(err)
+        setAuthState({
+          ...authState,
+          error: err,
+        })
       }
       )
   }
 
   const signout = async () => {
-
     await axios.post(`${process.env.NEXT_PUBLIC_URL}signout`).then(res => {
-      setUser(null)
+      const { user: authenticatedUser } = res.data
+      setAuthState({
+        ...authState,
+        user: authenticatedUser,
+      })
     }
     ).catch(err => {
       console.log(err)
@@ -58,7 +61,9 @@ const useAuthServerless = ({ mode, input }: AuthServerlessHookProps): AuthServer
     )
   }
 
-  return { user, signin, signout }
+  const { user, error, session } = authState
+
+  return { user, error, session, signin, signout }
 
 }
 

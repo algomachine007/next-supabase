@@ -4,41 +4,57 @@ import { useRouter } from "next/router";
 import ProfileWithServerlessFunction from "./ProfileWithServerlessFunction";
 import { ModeType } from "../hooks/AuthServerlessHookType";
 
+const initialState = {
+  email: '',
+  password: '',
+}
+
 const AuthForm = ({ mode }: ModeType) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+
   const router = useRouter()
+
+  const [inputValue, setInput] = useState(initialState);
+
+  const updateInputState = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const { value, name } = e.target;
+    setInput({
+      ...input,
+      [name]: value
+    })
+  }
+
+  const { email, password } = inputValue
 
   const input = {
     email,
     password,
   }
 
-  const { user, signin, signout } = useAuthServerless({ mode, input });
-  console.log('USER', user);
+  const { user, session, signin, signout } = useAuthServerless({ mode, input });
 
-  const pushToSignin = () => {
-    //@ts-ignore
-    if (user?.data?.activeSession === null && user?.data?.user) {
+  const redirector = () => {
+    if (session === null && user) {
       router.push('/signin')
     }
   }
 
-  useEffect(pushToSignin, [user, router])
-
-
+  useEffect(redirector, [user, router, session])
 
   return (
     <div>
-      <h2>    {mode.toUpperCase()} with serverless function  </h2>
+
+      <h2> {mode.toUpperCase()} with serverless function  </h2>
+
       <form onSubmit={signin}>
-        <input type="text" onChange={e => setEmail(e.target.value)} />
-        <input type="password" onChange={e => setPassword(e.target.value)} />
+        <label> Email </label>
+        <input type="text" name='email' onChange={updateInputState} />
+
+        <label> Password </label>
+        <input type="password" name='password' onChange={updateInputState} />
         <button type='submit'>{mode.toUpperCase()}</button>
       </form>
 
       <button onClick={signout}> {mode === 'signin' && <p>Signout</p>}</button>
-
 
       <div>
         {user && mode === 'signin' && <ProfileWithServerlessFunction user={user} />}

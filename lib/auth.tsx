@@ -8,7 +8,6 @@ interface AuthContextType {
   signin: (email: string, password: string) => Promise<void>;
   signout: () => Promise<void>;
   onAuthChange: (event: AuthChangeEvent) => void;
-
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null);
@@ -23,10 +22,8 @@ export const AuthProvider = ({ supabase, ...props }: any) => {
   useEffect(() => {
     const activeSession = supabase.auth.session();
     setSession(activeSession);
-
     setUser(activeSession?.user ?? null);
 
-    //Ensuring the view is updated by the events
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (event: AuthChangeEvent, currentSession: Session | null) => {
 
@@ -48,7 +45,7 @@ export const AuthProvider = ({ supabase, ...props }: any) => {
     return () => {
       authListener?.unsubscribe();
     };
-  }, []);
+  }, [supabase.auth]);
 
   return (
     <AuthContext.Provider
