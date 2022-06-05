@@ -1,15 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { supabase } from "../../lib/initSupabase";
 import cookie from "cookie";
-import { SupaBaseApiProps } from "./SupabaseTypes";
+import { Message, SupaBaseApiProps } from "./SupabaseTypes";
 
 module.exports = async (
   req: NextApiRequest,
-  res: NextApiResponse<SupaBaseApiProps>
+  res: NextApiResponse<SupaBaseApiProps | Message>
 ) => {
+  const { email, password } = req.body;
   const { user, error, session } = await supabase.auth.signIn({
-    email: req.body.email,
-    password: req.body.password,
+    email,
+    password,
   });
   const activeSession = supabase.auth.session();
   if (user && session && !error && activeSession) {
