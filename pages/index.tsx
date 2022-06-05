@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { useEffect } from "react";
 import Layout from "../components/Layout/Layout";
-import { useAuth } from "../lib/auth";
+import { useAuth } from "./../hooks/useAuth";
 import { Auth } from "@supabase/ui";
 import { supabase } from "../lib/initSupabase";
 import style from './../styles/form.module.css'
@@ -74,7 +74,7 @@ const Home = ({ data }: any) => {
             <div className={styles.githubImageWrapper}>
               <Image src={github} alt='github' />
             </div>
-            <h2>Signin with Github</h2>
+            <h2>Module 2 : Signin with Github</h2>
           </div>
 
           <div className={styles.githubButtonWrapper}>
