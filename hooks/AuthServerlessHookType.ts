@@ -13,5 +13,3 @@ export type AuthServerlessHookReturnType = {
   signin: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
   signout: () => Promise<void>;
 };
-
-// : ReturnType< typeof useAuthServerless>

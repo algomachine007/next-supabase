@@ -1,6 +1,6 @@
-import axios from "axios"
-
 import { useState } from "react"
+
+import axios from "axios"
 import { AuthServerlessHookProps, AuthServerlessHookReturnType } from "./AuthServerlessHookType"
 
 type User = {
@@ -15,7 +15,7 @@ type User = {
 }
 
 const useAuthServerless = ({ mode, input }: NonNullable<AuthServerlessHookProps>): AuthServerlessHookReturnType => {
-  const [user, setUser] = useState<null>(null)
+  const [user, setUser] = useState(null)
 
   const [authState, setAuthState] = useState({
     isLoading: false,

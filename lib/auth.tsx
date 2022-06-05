@@ -1,7 +1,7 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { EVENTS, VIEWS } from "./events";
 
-export const AuthContext = createContext({});
+export const AuthContext = createContext<any | null>({});
 
 export const AuthProvider = ({ supabase, ...props }: any) => {
 
@@ -11,34 +11,30 @@ export const AuthProvider = ({ supabase, ...props }: any) => {
 
 
   useEffect(() => {
-    // grab the user session
     const activeSession = supabase.auth.session();
     setSession(activeSession);
-    console.log('ACTIVE SESSION', activeSession);
-    // active session has a user prop
+
     setUser(activeSession?.user ?? null);
-    //Ensuring the events are updated
+
+    //Ensuring the view is updated by the events
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (event: string, currentSession: any) => {
 
         setSession(currentSession);
         setUser(currentSession?.user ?? null);
-
-        console.log('Events', event);
-
         switch (event) {
           case EVENTS.PASSWORD_RECOVERY:
             setView(VIEWS.UPDATE_PASSWORD);
             break;
           case EVENTS.SIGNED_OUT:
           case EVENTS.USER_UPDATED:
-            setView(VIEWS.SIGN_IN);
-
+            return setView(VIEWS.SIGN_IN);
           default:
+            break;
         }
       }
     );
-    //clean up
+
     return () => {
       authListener?.unsubscribe();
     };
@@ -59,11 +55,3 @@ export const AuthProvider = ({ supabase, ...props }: any) => {
 };
 
 
-//useAuth hook
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-};
