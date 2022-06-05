@@ -3,6 +3,8 @@ type InputProps = {
   password: string;
 };
 
+export type ModeType = { mode: "signin" | "signup" };
+
 export type AuthServerlessHookProps = {
   mode: "signin" | "signup";
   input: InputProps;
@@ -10,6 +12,6 @@ export type AuthServerlessHookProps = {
 
 export type AuthServerlessHookReturnType = {
   user: null;
-  signin: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
+  signin: (event: React.FormEvent) => Promise<void>;
   signout: () => Promise<void>;
 };

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import useAuthServerless from "../hooks/useAuthServerless";
 import { useRouter } from "next/router";
 import ProfileWithServerlessFunction from "./ProfileWithServerlessFunction";
+import { ModeType } from "../hooks/AuthServerlessHookType";
 
-const AuthForm = ({ mode }: any) => {
+const AuthForm = ({ mode }: ModeType) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter()
@@ -20,22 +21,16 @@ const AuthForm = ({ mode }: any) => {
     //@ts-ignore
     if (user?.data?.activeSession === null && user?.data?.user) {
       router.push('/signin')
-    } else {
-      //@ts-ignore
-      // if (user?.data?.activeSession) {
-      //   //@ts-ignore
-      //   router.push('/profileForServerlessAuth')
-      // }
     }
   }
 
-  useEffect(pushToSignin, [user])
+  useEffect(pushToSignin, [user, router])
 
 
 
   return (
-    <div>{mode.toUpperCase()} with serverless function
-
+    <div>
+      <h2>    {mode.toUpperCase()} with serverless function  </h2>
       <form onSubmit={signin}>
         <input type="text" onChange={e => setEmail(e.target.value)} />
         <input type="password" onChange={e => setPassword(e.target.value)} />

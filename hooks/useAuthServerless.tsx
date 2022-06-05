@@ -14,7 +14,7 @@ type User = {
   },
 }
 
-const useAuthServerless = ({ mode, input }: NonNullable<AuthServerlessHookProps>): AuthServerlessHookReturnType => {
+const useAuthServerless = ({ mode, input }: AuthServerlessHookProps): AuthServerlessHookReturnType => {
   const [user, setUser] = useState(null)
 
   const [authState, setAuthState] = useState({
@@ -30,8 +30,8 @@ const useAuthServerless = ({ mode, input }: NonNullable<AuthServerlessHookProps>
   const path: NonNullable<string> = mode
 
 
-  const signin = async (e: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
-    e.preventDefault();
+  const signin = async (event: React.FormEvent): Promise<void> => {
+    event.preventDefault();
     const data = {
       email,
       password,
