@@ -1,17 +1,37 @@
 import axios from "axios"
 
 import { useState } from "react"
+import { AuthServerlessHookProps, AuthServerlessHookReturnType } from "./AuthServerlessHookType"
 
+type User = {
+  id: string,
+  aud: string,
+  role: string,
+  email: string,
+  app_metadata: {
+    provider: string,
+    providers: string[]
+  },
+}
 
-const useAuthServerless = ({ mode, input }: any) => {
-  const [user, setUser] = useState(null)
+const useAuthServerless = ({ mode, input }: NonNullable<AuthServerlessHookProps>): AuthServerlessHookReturnType => {
+  const [user, setUser] = useState<null>(null)
+
+  const [authState, setAuthState] = useState({
+    isLoading: false,
+    isError: false,
+    error: null,
+    user: null,
+    session: null,
+  })
 
   const { email, password } = input
 
-  const path = mode
+  const path: NonNullable<string> = mode
 
-  const signin = async (e: any) => {
-    e.preventDefault()
+
+  const signin = async (e: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
+    e.preventDefault();
     const data = {
       email,
       password,
@@ -30,8 +50,6 @@ const useAuthServerless = ({ mode, input }: any) => {
   const signout = async () => {
 
     await axios.post(`${process.env.NEXT_PUBLIC_URL}signout`).then(res => {
-
-      //@ts-ignore
       setUser(null)
     }
     ).catch(err => {
