@@ -1,3 +1,4 @@
+//Runs before the app loads
 // gets executed before any request is fired
 // used for page protection
 
@@ -16,7 +17,7 @@ export default function middleware(req: NextRequest) {
     (page) => page === pathname
   );
 
-  const token = req.cookies.i1;
+  const token = req.cookies.BEJAMAS_SUPABASE_ACCESS_TOKEN;
   console.log("Cookies", token);
 
   if (!token && mustBeSignedInToView) {

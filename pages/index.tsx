@@ -91,6 +91,7 @@ const Home = ({ data }: any) => {
 
 
 
+
     </Layout >
   );
 };
@@ -99,6 +100,8 @@ export default Home;
 
 
 export const getStaticProps = async () => {
+
+  //basic supabase queries
   const { data } = await supabase.from('lessons').select('*')
 
   return { props: { data } }

@@ -14,14 +14,9 @@ export const AuthProvider = ({ supabase, ...props }: any) => {
     // grab the user session
     const activeSession = supabase.auth.session();
     setSession(activeSession);
-
     console.log('ACTIVE SESSION', activeSession);
-
     // active session has a user prop
     setUser(activeSession?.user ?? null);
-
-
-
     //Ensuring the events are updated
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (event: string, currentSession: any) => {
