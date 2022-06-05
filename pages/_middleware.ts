@@ -11,14 +11,13 @@ export default function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl.clone();
   const url = req.nextUrl.clone();
 
-  url.pathname = "/signin";
+  url.pathname = "/signup";
 
   const mustBeSignedInToView = routesToProtect.find(
     (page) => page === pathname
   );
 
   const token = req.cookies.BEJAMAS_SUPABASE_ACCESS_TOKEN;
-  console.log("Cookies", token);
 
   if (!token && mustBeSignedInToView) {
     return NextResponse.redirect(url);

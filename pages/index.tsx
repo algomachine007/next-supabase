@@ -5,7 +5,11 @@ import { useAuth } from "../lib/auth";
 import { Auth } from "@supabase/ui";
 import { supabase } from "../lib/initSupabase";
 import style from './../styles/form.module.css'
+import styles from './../styles/wrapper.module.css'
 import { useRouter } from "next/router";
+import Image from "next/image";
+import github from './../public/github.png'
+import Button from "../components/Button/Button";
 
 const Home = ({ data }: any) => {
   console.log('lessons', data)
@@ -32,39 +36,56 @@ const Home = ({ data }: any) => {
       },
     );
 
-    console.log(user)
+    console.log('GITHUB USER', user)
   }
 
-  const signOutFromGithub = async () => {
-    await supabase.auth.signOut();
-  }
 
   return (
     <Layout>
-      {user && (
-        <>
-          <h2>Welcome!</h2>
-          <code className="highlight">{user.role}</code>
-          <Link href="/profile">
-            <a className="button">Go to Profile</a>
-          </Link>
-          <button type="button" className="button-inverse" onClick={signOut}>
-            Sign Out
-          </button>
-        </>
-      )}
+      <div className={styles.wrapper}>
+        {user && (
+          <>
+            <h2>Welcome! {user.email}</h2>
+            <code className="highlight">{user.role}</code>
+            <Link href="/profile">
+              <a className="button">Go to Profile</a>
+            </Link>
 
+            <button type="button" className="button-inverse" onClick={signOut}>
+              Sign Out
+            </button>
+          </>
+        )}
 
-      <div className={style.formWrapper}>
+        <div>
+          <div>
+            <h2>Module 1: Authentication with Supabase UI</h2>
+          </div>
+          {!user && <div className={style.formWrapper}>
 
-        {!user && <Auth view={view} supabaseClient={supabase} className={style.form} />}
-
+            <Auth view={view} supabaseClient={supabase} className={style.form} />
+          </div>
+          }
+        </div>
       </div>
+      <div className={styles.wrapper}>
+        <div>
+          <div className={styles.githubHeading}>
+            <div className={styles.githubImageWrapper}>
+              <Image src={github} alt='github' />
+            </div>
+            <h2>Signin with Github</h2>
+          </div>
 
+          <div className={styles.githubButtonWrapper}>
+            <Button callback={signInWithGithub}>Sign in</Button>
+            <Button callback={signOut} data-variant='sign-out'>Sign Out</Button>
+          </div>
 
-
+        </div>
+      </div>
       <div>
-        <h1>View description </h1>
+        <h1>SIMPLE QUERY FROM TABLE </h1>
 
         {data.map((lesson: any) => (
           <div key={lesson.id}>
@@ -83,11 +104,7 @@ const Home = ({ data }: any) => {
         ))}
       </div>
 
-      {/* <div>
-        Signin with Github
-        <button onClick={signInWithGithub}>Sign in</button>
-        <button onClick={signOutFromGithub}>Sign Out</button>
-      </div> */}
+
 
 
 

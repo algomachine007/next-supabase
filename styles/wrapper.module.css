@@ -1,0 +1,24 @@
+.wrapper {
+  box-shadow: 1px -1px 18px -4px rgba(17, 147, 71, 0.29);
+  padding: 40px;
+  width: 1400px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  margin: 40px auto;
+}
+
+.wrapper:hover {
+  box-shadow: 6px -1px 18px -1px rgba(2, 255, 107, 0.686);
+}
+
+.githubHeading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.githubImageWrapper {
+  width: 80px;
+  margin-right: 40px;
+}

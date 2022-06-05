@@ -13,8 +13,6 @@ module.exports = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   });
   const activeSession = supabase.auth.session();
   if (user && session && !error && activeSession) {
-    console.log("ACTIVE SESSION", activeSession);
-
     if (activeSession.access_token) {
       res.setHeader(
         "Set-Cookie",

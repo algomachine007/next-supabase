@@ -5,6 +5,11 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
+:root {
+  --black: #000;
+  --orange: rgb(168, 93, 32);
+  --white: #fff;
+}
 
 a {
   color: inherit;
