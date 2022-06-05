@@ -8,6 +8,10 @@
   margin: 40px auto;
 }
 
+.wrapper[data-variant="column"] {
+  flex-flow: column nowrap;
+}
+
 .wrapper:hover {
   box-shadow: 6px -1px 18px -1px rgba(2, 255, 107, 0.686);
 }

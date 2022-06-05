@@ -4,10 +4,11 @@ import { Session, User } from "@supabase/gotrue-js/src/lib/types"
 import { AuthChangeEvent } from "@supabase/supabase-js";
 
 interface AuthContextType {
-  user: User | null;
+  user: User;
   signin: (email: string, password: string) => Promise<void>;
-  signout: () => Promise<void>;
+  signOut: () => Promise<void>;
   onAuthChange: (event: AuthChangeEvent) => void;
+  view: string
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null);

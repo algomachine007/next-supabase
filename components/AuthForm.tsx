@@ -42,7 +42,6 @@ const AuthForm = ({ mode }: ModeType) => {
 
   return (
     <div>
-
       <h2> {mode.toUpperCase()} with serverless function  </h2>
 
       <form onSubmit={signin}>

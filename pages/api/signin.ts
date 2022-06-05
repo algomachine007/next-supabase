@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { supabase } from "../../lib/initSupabase";
 import cookie from "cookie";
+import { SupaBaseApiProps } from "./SupabaseTypes";
 
-type Data = {
-  message: string;
-};
-
-module.exports = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+module.exports = async (
+  req: NextApiRequest,
+  res: NextApiResponse<SupaBaseApiProps>
+) => {
   const { user, error, session } = await supabase.auth.signIn({
     email: req.body.email,
     password: req.body.password,
@@ -30,7 +30,6 @@ module.exports = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         )
       );
     }
-    //@ts-ignore
     res.status(200).json({ user, activeSession, error });
   } else {
     res.status(401).json({ message: "Email or password incorrect" });

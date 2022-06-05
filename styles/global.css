@@ -9,6 +9,8 @@ body {
   --black: #000;
   --orange: rgb(168, 93, 32);
   --white: #fff;
+  --supabase-green: #17b951;
+  --bx-shadow-light: rgba(17, 147, 71, 0.29);
 }
 
 a {

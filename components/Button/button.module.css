@@ -3,14 +3,15 @@
   border: 1px solid #e6e6e6;
   border-radius: 5px;
   color: var(--white);
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
-  width: 70px;
   transition: all 0.2s ease-in-out;
+  padding: 10px 25px;
 }
 .githubButton:hover {
   background-color: #ffffff;
   color: var(--black);
+  border: 1px solid black;
 }
 
 .githubButton[data-variant="sign-out"] {
@@ -21,4 +22,5 @@
 .githubButton[data-variant="sign-out"]:hover {
   background: var(--white);
   color: var(--orange);
+  border: 1px solid var(--orange);
 }

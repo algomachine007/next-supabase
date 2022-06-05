@@ -3,7 +3,7 @@ import React from 'react'
 
 const Layout = ({ children }: any) => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2" >
+    <div>
       <Head>
         <title>Harnesing Supabase with Next.js</title>
         <link rel="icon" href="/favicon.ico" />
@@ -13,7 +13,7 @@ const Layout = ({ children }: any) => {
 
         <div>
           <h1>
-            Harnesing <span style={{ color: '#17b951' }}> Supabase</span>  with Next.js
+            Harnessing <span style={{ color: '#17b951' }}> Supabase</span>  with Next.js
           </h1>
           {children}
         </div>

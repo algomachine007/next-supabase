@@ -1,16 +1,22 @@
 .formWrapper {
-  box-shadow: 1px -1px 18px -4px rgba(17, 147, 71, 0.29);
+  box-shadow: 1px -1px 18px -4px var(--bx-shadow-light);
   padding: 40px;
   width: 100%;
 }
 
 .form button {
-  background: #17b951;
-  border: none;
+  background: var(--supabase-green);
   border-radius: 5px;
-  color: #fff;
+  color: var(--white);
   font-size: 16px;
   font-weight: bold;
   padding: 10px;
   width: 100%;
+}
+
+.authView {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
 }
