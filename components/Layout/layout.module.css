@@ -1,0 +1,9 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.spanColor {
+  color: var(--supabase-green);
+}

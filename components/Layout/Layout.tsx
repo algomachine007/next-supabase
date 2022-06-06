@@ -1,5 +1,7 @@
 import Head from "next/head"
 import React from 'react'
+import styles from './layout.module.css'
+
 
 const Layout = ({ children }: any) => {
   return (
@@ -9,11 +11,11 @@ const Layout = ({ children }: any) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main style={{ display: 'flex', justifyContent: 'center', textAlign: 'center' }}>
+      <main className={styles.wrapper}>
 
         <div>
           <h1>
-            Harnessing <span style={{ color: '#17b951' }}> Supabase</span>  with Next.js
+            Harnessing <span className={styles.spanColor}> Supabase</span>  with Next.js
           </h1>
           {children}
         </div>
