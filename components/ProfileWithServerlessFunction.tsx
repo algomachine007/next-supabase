@@ -18,7 +18,7 @@ const ProfileWithServerlessFunction = ({ user }: any) => {
           </div>
 
           <div>
-            {email && <>  <label> Welcome </label> <p>{email}</p></>}
+            {email && <><label> Welcome </label> <p>{email}</p></>}
             {preferred_username && <><label> Username : </label> <p>{preferred_username}</p></>}
             {name && <> <label> Name : </label> <p>{name}</p> </>}
           </div>

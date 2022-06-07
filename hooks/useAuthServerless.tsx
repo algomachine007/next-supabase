@@ -8,8 +8,6 @@ import toaster from "../helpers/toaster";
 
 const useAuthServerless = ({ mode, input }: AuthServerlessHookProps): AuthServerlessHookReturnType => {
 
-
-
   const [authState, setAuthState] = useState({
     error: null,
     user: null,

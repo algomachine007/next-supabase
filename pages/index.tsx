@@ -87,23 +87,35 @@ const Home = ({ data }: LessonData) => {
           </div>
         </div>
       </div>
-      <div>
-        <h1>Module 3: Simple Query from Table </h1>
+      <div className={styles.wrapper}>
 
-        {data?.map(({ id, title }) => (
-          <div key={id}>
-            <Link
-              href={{
-                pathname: "/lesson/[id]",
-                query: {
-                  id: id,
-                },
-              }}
-            >
-              <a>{title} </a>
-            </Link>
+        <div>
+          <div>
+            <h1>Module 3: Simple Query from Table </h1>
           </div>
-        ))}
+
+          {data?.map(({ id, title }) => (
+            <div key={id} className={style.link}>
+              <Link
+                href={{
+                  pathname: "/lesson/[id]",
+                  query: {
+                    id: id,
+                  },
+                }}
+              >
+                <a>{title} </a>
+              </Link>
+            </div>
+          ))}
+
+          <li>
+            <Link href='/lesson/new/lesson'>
+              <a>+ New Lesson</a>
+            </Link>
+          </li>
+        </div>
+
       </div>
     </Layout>
   );

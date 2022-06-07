@@ -1,15 +1,9 @@
-import { GetServerSideProps } from "next"
 import { useRouter } from "next/router"
-import React, { useState } from 'react'
-import LessonForm from "../../components/LessonForm/LessonForm"
-import { supabase } from "../../lib/initSupabase"
+import { useState } from "react"
+import LessonForm from "../../../components/LessonForm/LessonForm"
+import { supabase } from "../../../lib/initSupabase"
 
-
-const Description = ({ data }: any) => {
-  console.log(data);
-
-  const { id: identifier } = data
-
+const NewLesson = () => {
   const [text, setText] = useState("")
   const [title, setTitle] = useState("")
 
@@ -29,10 +23,8 @@ const Description = ({ data }: any) => {
       "text": text,
     }]
     try {
-      const { data } = await supabase.from('lessons').update(lesson).match({
-        id: identifier
-      });
-
+      const { data } = await supabase.from('lessons').insert(lesson)
+      console.log(data);
       if (data) {
         router.push("/")
       }
@@ -43,11 +35,6 @@ const Description = ({ data }: any) => {
 
   return (
     <div>
-      <h1>UPDATE</h1>
-
-      <h2>{data.title}</h2>
-      <p>{data.text}</p>
-
       <LessonForm
         onTitleChange={onTitleChange}
         onTextChange={onTextChange}
@@ -59,24 +46,4 @@ const Description = ({ data }: any) => {
   )
 }
 
-export default Description
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-
-  const { query: { id } } = ctx
-
-  const { data, error } = await supabase.from('lessons').select('*').eq('id', id).single()
-
-  if (error) {
-    return {
-      notFound: true,
-    }
-  }
-
-
-  return {
-    props: {
-      data
-    },
-  }
-}
+export default NewLesson

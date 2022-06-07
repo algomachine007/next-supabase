@@ -26,3 +26,8 @@
   width: 80px;
   margin-right: 40px;
 }
+
+.link {
+  color: var(--supabase-green);
+  text-decoration: none;
+}

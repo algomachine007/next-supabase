@@ -1,7 +1,5 @@
-
 import styles from './button.module.css'
 import { ButtonProps } from "./ButtonTypes"
-
 
 const Button = ({ children, callback, image, ...rest }: ButtonProps) => {
   return (

@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { supabase } from "../../lib/initSupabase";
-import { Session, User, ApiError } from "@supabase/gotrue-js/src/lib/types";
 import { SupaBaseApiProps } from "./SupabaseTypes";
 
 module.exports = async (
