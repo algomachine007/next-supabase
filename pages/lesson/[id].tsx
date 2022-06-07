@@ -5,8 +5,7 @@ import LessonForm from "../../components/LessonForm/LessonForm"
 import { supabase } from "../../lib/initSupabase"
 
 
-const Description = ({ data }: any) => {
-  console.log(data);
+const UpdateLesson = ({ data }: any) => {
 
   const { id: identifier } = data
 
@@ -59,7 +58,7 @@ const Description = ({ data }: any) => {
   )
 }
 
-export default Description
+export default UpdateLesson
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
 

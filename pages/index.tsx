@@ -11,29 +11,41 @@ import Image from "next/image";
 import github from "./../public/github.png";
 import Button from "../components/Button/Button";
 import { LessonData } from "./lesson/LessonType";
+import { toast } from "react-toastify";
 
 const Home = ({ data }: LessonData) => {
   //@ts-ignore
   const { user, signOut, view } = useAuth();
 
-  const router = useRouter();
-
-  // const pushToProfile = () => {
-  //   if (user) {
-  //     router.push('/profile')
-  //   }
-  // }
-
-  // useEffect(pushToProfile, [user])
-
-  console.log("supabase", supabase);
-
   const signInWithGithub = async () => {
     const { user } = await supabase.auth.signIn({
       provider: "github",
     });
-    console.log('GITHUB', user);
   };
+
+  const handleDeleteLesson = async (id: number, title: string) => {
+    try {
+      await supabase
+        .from('lessons')
+        .delete()
+        .match({ id })
+      toast(`${title} removed`, {
+        type: "warning",
+        position: "top-right",
+        autoClose: 500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      window.location.reload();
+    } catch (error) {
+      toast(`${error} removed`, {
+        type: "error",
+      });
+    }
+  }
 
   return (
     <Layout>
@@ -106,6 +118,7 @@ const Home = ({ data }: LessonData) => {
               >
                 <a>{title} </a>
               </Link>
+              <button onClick={() => handleDeleteLesson(id, title)}>Delete ❌ </button>
             </div>
           ))}
 
