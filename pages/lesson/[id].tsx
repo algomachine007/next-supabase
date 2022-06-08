@@ -62,6 +62,8 @@ export default UpdateLesson
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
+  console.log(ctx);
+
   const { query: { id } } = ctx
 
   const { data, error } = await supabase.from('lessons').select('*').eq('id', id).single()

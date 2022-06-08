@@ -1,7 +1,3 @@
-//Runs before the app loads
-// gets executed before any request is fired
-// used for page protection
-
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 

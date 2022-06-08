@@ -2,8 +2,6 @@ import { useState } from "react"
 
 import axios from "axios"
 import { AuthServerlessHookProps, AuthServerlessHookReturnType } from "./AuthServerlessHookType"
-import { Session, User } from "@supabase/gotrue-js/src/lib/types"
-import { AuthChangeEvent } from "@supabase/supabase-js";
 import toaster from "../helpers/toaster";
 
 const useAuthServerless = ({ mode, input }: AuthServerlessHookProps): AuthServerlessHookReturnType => {

@@ -6,6 +6,7 @@ import { useAuth } from "../hooks/useAuth"
 
 
 const Profile = () => {
+
   const { user, signOut, view } = useAuth();
 
   const router = useRouter()

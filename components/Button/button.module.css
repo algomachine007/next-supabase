@@ -24,3 +24,25 @@
   color: var(--orange);
   border: 1px solid var(--orange);
 }
+
+.githubButton[data-variant="delete"] {
+  background: #ff5252;
+  color: var(--white);
+}
+
+.githubButton[data-variant="delete"]:hover {
+  background: var(--white);
+  color: #ff5252;
+  border: 1px solid #ff5252;
+}
+
+.githubButton[data-variant="success"] {
+  background: #4caf50;
+  color: var(--white);
+}
+
+.githubButton[data-variant="success"]:hover {
+  background: var(--white);
+  color: #4caf50;
+  border: 1px solid #4caf50;
+}

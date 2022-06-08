@@ -24,7 +24,6 @@ const NewLesson = () => {
     }]
     try {
       const { data } = await supabase.from('lessons').insert(lesson)
-      console.log(data);
       if (data) {
         router.push("/")
       }

@@ -1,12 +1,10 @@
 import Link from "next/link";
-import React, { useEffect } from "react";
 import Layout from "../components/Layout/Layout";
 import { useAuth } from "./../hooks/useAuth";
 import { Auth } from "@supabase/ui";
 import { supabase } from "../lib/initSupabase";
 import style from "./../styles/form.module.css";
 import styles from "./../styles/wrapper.module.css";
-import { useRouter } from "next/router";
 import Image from "next/image";
 import github from "./../public/github.png";
 import Button from "../components/Button/Button";
@@ -14,11 +12,10 @@ import { LessonData } from "./lesson/LessonType";
 import { toast } from "react-toastify";
 
 const Home = ({ data }: LessonData) => {
-  //@ts-ignore
   const { user, signOut, view } = useAuth();
 
   const signInWithGithub = async () => {
-    const { user } = await supabase.auth.signIn({
+    await supabase.auth.signIn({
       provider: "github",
     });
   };
@@ -31,13 +28,6 @@ const Home = ({ data }: LessonData) => {
         .match({ id })
       toast(`${title} removed`, {
         type: "warning",
-        position: "top-right",
-        autoClose: 500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
       });
       window.location.reload();
     } catch (error) {
@@ -53,7 +43,7 @@ const Home = ({ data }: LessonData) => {
         {user && (
           <div className={styles.authView}>
             <h2>Welcome! {user.email}</h2>
-            <div>
+            <div className={styles.authenticated}>
               <code className="highlight">{user.role}</code>
               <Link href="/profile">
                 <a className="button">Go to Profile</a>
@@ -103,11 +93,11 @@ const Home = ({ data }: LessonData) => {
 
         <div>
           <div>
-            <h1>Module 3: Simple Query from Table </h1>
+            <h2>Module 3: Simple Query from Table </h2>
           </div>
 
           {data?.map(({ id, title }) => (
-            <div key={id} className={style.link}>
+            <div key={id} className={styles.lessonWrapper} >
               <Link
                 href={{
                   pathname: "/lesson/[id]",
@@ -118,13 +108,13 @@ const Home = ({ data }: LessonData) => {
               >
                 <a>{title} </a>
               </Link>
-              <button onClick={() => handleDeleteLesson(id, title)}>Delete ❌ </button>
+              <Button data-variant='delete' callback={() => handleDeleteLesson(id, title)}>Delete</Button>
             </div>
           ))}
 
-          <li>
+          <li className={styles.link}>
             <Link href='/lesson/new/lesson'>
-              <a>+ New Lesson</a>
+              <a> &#x2B; New Lesson</a>
             </Link>
           </li>
         </div>

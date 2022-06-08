@@ -1,4 +1,5 @@
 import React from 'react'
+import { LessonFormType } from "./LessonFormType"
 
 
 export default function LessonForm({
@@ -7,7 +8,7 @@ export default function LessonForm({
   onTextChange,
   text,
   onSubmit
-}: any) {
+}: LessonFormType) {
   return (
     <form onSubmit={onSubmit}>
       <label>Title

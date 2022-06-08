@@ -8,10 +8,10 @@ interface AuthContextType {
   signin: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
   onAuthChange: (event: AuthChangeEvent) => void;
-  view: string
+  view: 'sign_in' | 'sign_up' | 'forgotten_password' | 'magic_link' | 'update_password';
 }
 
-export const AuthContext = createContext<AuthContextType | null>(null);
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ supabase, ...props }: any) => {
 

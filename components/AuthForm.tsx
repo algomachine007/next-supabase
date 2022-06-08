@@ -3,6 +3,7 @@ import useAuthServerless from "../hooks/useAuthServerless";
 import { useRouter } from "next/router";
 import ProfileWithServerlessFunction from "./ProfileWithServerlessFunction";
 import { ModeType } from "../hooks/AuthServerlessHookType";
+import styles from './LessonForm/lesson.module.css'
 
 const initialState = {
   email: '',
@@ -41,7 +42,7 @@ const AuthForm = ({ mode }: ModeType) => {
   useEffect(redirector, [user, router, session])
 
   return (
-    <div>
+    <div className={styles.authForm}>
       <h2> {mode.toUpperCase()} with serverless function  </h2>
 
       <form onSubmit={signin}>
